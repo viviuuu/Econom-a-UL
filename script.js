@@ -1,0 +1,59 @@
+const cursos = [
+  { id: 'globalizacion', nombre: 'Globalización y Realidad Nacional', requisitos: [] },
+  { id: 'lenguaje1', nombre: 'Lenguaje y Comunicación I', requisitos: [] },
+  { id: 'lenguaje2', nombre: 'Lenguaje y Comunicación II', requisitos: ['lenguaje1'] },
+  { id: 'metodologia', nombre: 'Metodologías de Investigación', requisitos: [] },
+  { id: 'desarrollo', nombre: 'Desarrollo Personal y Social', requisitos: [] },
+  { id: 'etica', nombre: 'Ética Cívica', requisitos: [] },
+  { id: 'matematica_basica', nombre: 'Matemática Básica', requisitos: [] },
+  { id: 'matematica_negocios', nombre: 'Matemática Aplicada a los Negocios', requisitos: ['matematica_basica'] },
+  { id: 'estadistica_basica', nombre: 'Estadística Básica para los Negocios', requisitos: ['matematica_basica'] },
+  { id: 'economia_empresa', nombre: 'Economía y Empresa', requisitos: [] },
+  { id: 'historia_pensamiento', nombre: 'Historia del Pensamiento Económico', requisitos: ['economia_empresa'] },
+  { id: 'introduccion_economia', nombre: 'Introducción a la Ciencia Económica', requisitos: ['economia_empresa', 'matematica_negocios'] },
+  { id: 'procesos_sociales', nombre: 'Procesos Sociales y Políticos', requisitos: [] },
+  { id: 'temas_filosofia', nombre: 'Temas de Filosofía', requisitos: [] },
+  { id: 'contabilidad', nombre: 'Contabilidad para Economistas', requisitos: ['matematica_negocios'] },
+  { id: 'metodos1', nombre: 'Métodos Matemáticos I', requisitos: ['matematica_negocios'] },
+  { id: 'teoria_micro1', nombre: 'Teoría Microeconómica I', requisitos: ['metodos1', 'introduccion_economia'] },
+  { id: 'teoria_macro1', nombre: 'Teoría Macroeconómica I', requisitos: ['metodos1', 'introduccion_economia'] },
+  { id: 'estadistica_general', nombre: 'Estadística General', requisitos: ['estadistica_basica'] },
+  { id: 'estadistica_aplicada1', nombre: 'Estadística Aplicada I', requisitos: ['estadistica_general'] },
+  { id: 'estadistica_aplicada2', nombre: 'Estadística Aplicada II', requisitos: ['estadistica_aplicada1'] }
+  // Continúa agregando más cursos según sea necesario...
+];
+
+function crearMalla() {
+  const contenedor = document.getElementById('malla');
+  cursos.forEach(curso => {
+    const div = document.createElement('div');
+    div.className = 'curso bloqueado';
+    div.id = curso.id;
+    div.textContent = curso.nombre;
+    div.onclick = () => aprobarCurso(curso.id);
+    contenedor.appendChild(div);
+  });
+}
+
+function aprobarCurso(id) {
+  const curso = document.getElementById(id);
+  if (!curso.classList.contains('bloqueado')) {
+    curso.classList.toggle('aprobado');
+    desbloquearCursos();
+  }
+}
+
+function desbloquearCursos() {
+  cursos.forEach(curso => {
+    if (!document.getElementById(curso.id).classList.contains('aprobado')) {
+      const requisitosCompletos = curso.requisitos.every(req => 
+        document.getElementById(req).classList.contains('aprobado')
+      );
+      if (requisitosCompletos) {
+        document.getElementById(curso.id).classList.remove('bloqueado');
+      }
+    }
+  });
+}
+
+window.onload = crearMalla;

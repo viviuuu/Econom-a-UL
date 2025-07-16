@@ -1,0 +1,48 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffe6f0;
+  margin: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #c2185b;
+}
+
+#malla {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.curso {
+  width: 220px;
+  padding: 15px;
+  background-color: #f8bbd0;
+  border: 2px solid #c2185b;
+  border-radius: 10px;
+  color: #880e4f;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.curso:hover {
+  background-color: #f48fb1;
+}
+
+.aprobado {
+  background-color: #d81b60 !important;
+  color: white !important;
+  border-color: #880e4f;
+  text-decoration: line-through;
+}
+
+.bloqueado {
+  background-color: #fce4ec;
+  color: #aaa;
+  border-style: dashed;
+  cursor: not-allowed;
+}
